@@ -1,0 +1,14 @@
+
+{% extends 'home.html' %}
+{% block content %}
+
+<h3>Customer Information</h3>
+
+<br> 
+
+<form method="POST"   enctype="multipart/form-data">
+    {% csrf token %}
+    {{form}}
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+{% endblock %}
