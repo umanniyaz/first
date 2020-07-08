@@ -1,8 +1,5 @@
-from django import forms 
-from .models import Customer
+from django import forms
 
-
-class CustomerForm(forms.ModelForm):
-    class Meta:
-        model = Customer
-        fields = '__all__'
+class UploadFileForm(forms.Form):
+    title = forms.CharField(max_length=50)
+    file = forms.FileField()

@@ -1,27 +1,16 @@
 
-from django.shortcuts import render,redirect
-from django.http import HttpResponse
-from .forms import CustomerForm
+from django.shortcuts import render
+from django.views.generic import TemplateView
+from django.core.files.storage import FileSystemStorage
 
 
-def home(request):
 
-    
-    return render(request,'home.html')
-
-def uploaded_csv(request):
-    return render(request,'uploaded.html')
+class home(TemplateView):
+    template_name='home.html'
 
 def upload(request):
-    if request.method =='POST':
-
-     form = CustomerForm(request.POST, request.FILES)
-     if form.is_valid():
-         form.save()
-         return(redirect('uploaded_csv')
-     else:
-         form =CustomerForm()
-    return render(request, 'upload.html',{
-        'form' : form
-    })
-
+    if request.method == 'POST':
+        uploaded_file = request.FILES['document']
+        fs=FileSystemStorage()
+        fs.save(uploaded_file.name, uploaded_file)
+    return render(request, 'upload.html')
